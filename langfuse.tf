@@ -157,10 +157,16 @@ clickhouse:
       </clickhouse>
 EOT
 
+
+
+
+
   celdon_overwrite_values = <<EOT
 langfuse:
   features:
     telemetryEnabled: false
+    signUpDisabled: false
+    experimentalFeaturesEnabled: false
 EOT
 
 
