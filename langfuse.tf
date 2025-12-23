@@ -165,7 +165,7 @@ EOT
 langfuse:
   features:
     telemetryEnabled: false
-    signUpDisabled: true
+    signUpDisabled: false
     experimentalFeaturesEnabled: false
 EOT
 
