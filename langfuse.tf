@@ -156,6 +156,18 @@ clickhouse:
         <latency_log remove="1"/>
       </clickhouse>
 EOT
+
+  # Celdon override: pin three feature toggles via langfuse.features.* directly.
+  # Why a fork rather than upstream `additional_env`: chart 1.5.32 ships a values
+  # validation that rejects setting these vars via `additionalEnv` when the chart's
+  # default `features.*` block is also present (validations.yaml refuses both).
+  celdon_overwrite_values = <<EOT
+langfuse:
+  features:
+    telemetryEnabled: false
+    signUpDisabled: false
+    experimentalFeaturesEnabled: false
+EOT
 }
 
 resource "kubernetes_namespace" "langfuse" {
@@ -209,6 +221,7 @@ resource "helm_release" "langfuse" {
     local.encryption_values,
     local.additional_env_values,
     local.clickhouse_overwrite_values,
+    local.celdon_overwrite_values,
   ])
 
   depends_on = [
